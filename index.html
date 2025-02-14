@@ -18,13 +18,24 @@
       width: 100%;
       height: 100%;
     }
-    /* Текст-призыв "Нажми" */
-    #prompt {
+    /* Заголовок "Для любимой Эмили" вверху страницы */
+    #header {
       position: absolute;
       top: 20px;
       width: 100%;
       text-align: center;
-      font-size: 24px;
+      font-size: 36px; /* увеличенный размер */
+      font-weight: bold;
+      color: #ff3366;
+      z-index: 10;
+    }
+    /* Надпись "Нажми" внизу страницы */
+    #prompt {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 28px; /* увеличенный размер */
       font-weight: bold;
       color: #ff3366;
       z-index: 10;
@@ -42,7 +53,7 @@
       top: 50%;
       transform: translate(-50%, -50%);
       z-index: 5;
-      font-size: 32px;
+      font-size: 40px; /* увеличенный размер */
       font-weight: bold;
       text-align: center;
       white-space: nowrap;
@@ -51,13 +62,14 @@
 </head>
 <body>
   <div id="container">
+    <div id="header">Для любимой Эмили</div>
     <div id="prompt">Нажми</div>
   </div>
   <script>
     const container = document.getElementById('container');
     let greetingEl = null;
     
-    // Разнообразие сердечек (иконки и/или цвета)
+    // Массив с вариантами сердечек и цветов
     const heartsArray = ["❤️", "💖", "💕", "💘", "❣️", "💝", "💗", "💟"];
     const heartColors = ["red", "pink", "magenta", "deeppink", "crimson", "hotpink", "orange"];
     
@@ -75,11 +87,11 @@
     
     // Обработчик клика по экрану
     container.addEventListener('click', function(e) {
-      // Удаляем приветственный текст "Нажми", если он есть
+      // Удаляем начальные надписи, если они присутствуют
+      const headerEl = document.getElementById('header');
       const promptEl = document.getElementById('prompt');
-      if (promptEl) {
-        promptEl.remove();
-      }
+      if (headerEl) headerEl.remove();
+      if (promptEl) promptEl.remove();
       
       // Если предыдущая поздравительная надпись уже есть — удаляем её
       if (greetingEl) {
@@ -107,32 +119,30 @@
       container.appendChild(greetingEl);
     });
     
-    // Функция для создания и анимации одного сердечка
+    // Функция создания и анимации одного сердечка
     function createHeart(x, y) {
       const heart = document.createElement('div');
       heart.className = 'heart';
-      // Выбираем случайный символ-сердечко
       heart.textContent = heartsArray[Math.floor(Math.random() * heartsArray.length)];
-      // Задаём случайный размер (от 16 до 32px)
-      const size = Math.random() * 16 + 16;
+      // Случайный размер от 24 до 48px для лучшей видимости на мобильных устройствах
+      const size = Math.random() * 24 + 24;
       heart.style.fontSize = size + 'px';
-      // Применяем случайный цвет
+      // Случайный цвет сердечка
       heart.style.color = heartColors[Math.floor(Math.random() * heartColors.length)];
       
-      // Начальная позиция сердечка — там, где произошёл клик
+      // Начальная позиция — место клика
       heart.style.left = x + 'px';
       heart.style.top = y + 'px';
       container.appendChild(heart);
       
-      // Принудительный reflow для применения начальных стилей
+      // Принудительный reflow
       heart.offsetWidth;
       
-      // Случайная траектория: угол от 0 до 2π и расстояние от 50 до 150px
+      // Определяем случайную траекторию движения
       const angle = Math.random() * 2 * Math.PI;
       const distance = Math.random() * 100 + 50;
       const dx = Math.cos(angle) * distance;
       const dy = Math.sin(angle) * distance;
-      // Случайный поворот сердечка
       const rotate = Math.random() * 360;
       
       // Запускаем анимацию перемещения и исчезновения
