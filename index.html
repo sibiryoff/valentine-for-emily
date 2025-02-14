@@ -24,7 +24,7 @@
       top: 20px;
       width: 100%;
       text-align: center;
-      font-size: 36px; /* увеличенный размер */
+      font-size: 36px;
       font-weight: bold;
       color: #ff3366;
       z-index: 10;
@@ -35,7 +35,7 @@
       top: 100px;
       width: 100%;
       text-align: center;
-      font-size: 28px; /* увеличенный размер */
+      font-size: 28px;
       font-weight: bold;
       color: #ff3366;
       z-index: 10;
@@ -53,17 +53,19 @@
       top: 50%;
       transform: translate(-50%, -50%);
       z-index: 5;
-      font-size: 40px; /* увеличенный размер */
+      font-size: 40px;
       font-weight: bold;
       text-align: center;
       white-space: nowrap;
+      /* Добавляем тень для лучшей читаемости */
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
     }
   </style>
 </head>
 <body>
   <div id="container">
     <div id="header">Для любимой Эмили</div>
-    <div id="prompt">Нажми</div>
+    <div id="prompt">Нажми несколько раз!</div>
   </div>
   <script>
     const container = document.getElementById('container');
@@ -83,78 +85,12 @@
       "Georgia",
       "Arial"
     ];
-    const greetingColors = ["red", "pink"];
+    // Используем "red" и "hotpink" для лучшего контраста с фоном
+    const greetingColors = ["red", "hotpink"];
     
     // Обработчик клика по экрану
     container.addEventListener('click', function(e) {
       // Удаляем начальные надписи, если они присутствуют
       const headerEl = document.getElementById('header');
       const promptEl = document.getElementById('prompt');
-      if (headerEl) headerEl.remove();
-      if (promptEl) promptEl.remove();
-      
-      // Если предыдущая поздравительная надпись уже есть — удаляем её
-      if (greetingEl) {
-        greetingEl.remove();
-        greetingEl = null;
-      }
-      
-      // Получаем координаты клика относительно контейнера
-      const rect = container.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const clickY = e.clientY - rect.top;
-      
-      // Создаём анимацию разлетающихся сердечек
-      const numHearts = 20; // количество сердечек
-      for (let i = 0; i < numHearts; i++) {
-        createHeart(clickX, clickY);
-      }
-      
-      // Создаём поздравительную надпись с случайными параметрами
-      greetingEl = document.createElement('div');
-      greetingEl.className = 'greeting';
-      greetingEl.textContent = greetings[Math.floor(Math.random() * greetings.length)];
-      greetingEl.style.fontFamily = fonts[Math.floor(Math.random() * fonts.length)];
-      greetingEl.style.color = greetingColors[Math.floor(Math.random() * greetingColors.length)];
-      container.appendChild(greetingEl);
-    });
-    
-    // Функция создания и анимации одного сердечка
-    function createHeart(x, y) {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.textContent = heartsArray[Math.floor(Math.random() * heartsArray.length)];
-      // Случайный размер от 24 до 48px для лучшей видимости на мобильных устройствах
-      const size = Math.random() * 24 + 24;
-      heart.style.fontSize = size + 'px';
-      // Случайный цвет сердечка
-      heart.style.color = heartColors[Math.floor(Math.random() * heartColors.length)];
-      
-      // Начальная позиция — место клика
-      heart.style.left = x + 'px';
-      heart.style.top = y + 'px';
-      container.appendChild(heart);
-      
-      // Принудительный reflow
-      heart.offsetWidth;
-      
-      // Определяем случайную траекторию движения
-      const angle = Math.random() * 2 * Math.PI;
-      const distance = Math.random() * 100 + 50;
-      const dx = Math.cos(angle) * distance;
-      const dy = Math.sin(angle) * distance;
-      const rotate = Math.random() * 360;
-      
-      // Запускаем анимацию перемещения и исчезновения
-      heart.style.transition = "transform 1.5s ease-out, opacity 1.5s ease-out";
-      heart.style.transform = `translate(${dx}px, ${dy}px) rotate(${rotate}deg)`;
-      heart.style.opacity = 0;
-      
-      // Удаляем элемент после завершения анимации
-      setTimeout(() => {
-        heart.remove();
-      }, 1500);
-    }
-  </script>
-</body>
-</html>
+      if (head
